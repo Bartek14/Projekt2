@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 		float32 height = 0;
 
 	};
-	/////////////Graphics
+	/////////////Graphics 
 
 	coOrdinates dynamicRectCoordinates =
 	{
