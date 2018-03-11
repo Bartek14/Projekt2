@@ -1,6 +1,7 @@
 
 #include "Box2D/Box2D.h"
 #include <SFML/Graphics.hpp>
+#include "Box.h"
 #include <stdio.h>
 
 
@@ -147,8 +148,8 @@ int main(int argc, char** argv)
 				window.close();
 		}
 		//game loop
-		//for (int32 i = 0; i < 59; ++i)
-		while (sf::Keyboard::isKeyPressed)
+		
+		while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
 
 			myWorld.Step(timeStep, myVelocityIterations, myPositonIterations);
@@ -176,8 +177,6 @@ int main(int argc, char** argv)
 				myDynamicBody->SetLinearVelocity(downForce);
 
 
-
-
 			//Graphics
 
 			dynamicRect.setPosition(myPosition.x, myPosition.y);
@@ -186,7 +185,7 @@ int main(int argc, char** argv)
 			convex.setPosition(vertPosition.x, vertPosition.y);
 			convex.setRotation(vertAngle*(180 / 3.14));
 
-			//iterator++;
+			
 			//displaying
 			window.clear();
 			window.draw(dynamicRect);
@@ -195,43 +194,9 @@ int main(int argc, char** argv)
 			window.display();
 		}
 
-		window.clear();
-		window.draw(dynamicRect);
-		window.draw(groundRect);
-		window.draw(convex);
-		window.display();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			window.close();
 	}
 	printf("----------------------------------------------------\n");
-	//shapes
-
-	//circle
-	//	b2BodyDef circleBodyDef;
-	//	circleBodyDef.position.Set(0.0f, -9.0f);
-	//	circleBodyDef.type = b2_dynamicBody;
-	//	b2Body* dynamicCircle = myWorld.CreateBody(&circleBodyDef);
-	//	
-	//	b2CircleShape myCircle;
-	//	myCircle.m_p.Set(10.0f, 3.0f);
-	//	myCircle.m_radius = 1.0f;
-	//
-	//
-	//	b2FixtureDef circleFixtureDef;
-	//	circleFixtureDef.shape = &myCircle;
-	//	circleFixtureDef.density = 3.0f;
-	//	circleFixtureDef.friction = 0.6f;
-	//
-	//	dynamicCircle->CreateFixture(&circleFixtureDef);
-	//
-	//	for (int k = 0; k < 59; k++)
-	//	{
-	//		myWorld.Step(timeStep, myVelocityIterations, myPositonIterations);
-	//		b2Vec2 circlePosition = dynamicCircle->GetPosition();
-	//		float32 circleAngle = dynamicCircle->GetAngle();
-	//		printf("%4.2f %4.2f %4.2f\n", circlePosition.x, circlePosition.y, circleAngle);
-	//	}
-
-
-	getchar();
-
 	return 0;
 }
