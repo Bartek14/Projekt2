@@ -31,6 +31,7 @@ int main(int argc, char** argv)
 		500,
 		50,
 	};
+	
 
 	sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
 	sf::RectangleShape dynamicRect(sf::Vector2f(dynamicRectCoordinates.width, dynamicRectCoordinates.height));
@@ -54,6 +55,41 @@ int main(int argc, char** argv)
 	b2Vec2 myGravity(0.0f, 0.5f);
 	//adding gravity to my world;
 	b2World myWorld(myGravity);
+
+	//CLASSS
+	MyBox pudlo;
+
+	pudlo.bodyDef.type = b2_dynamicBody;
+	pudlo.bodyDef.position.Set(0, 0);
+
+	pudlo.body = myWorld.CreateBody(&pudlo.bodyDef);
+
+	pudlo.vertex[0].Set(0.0f, 0.0f);
+	pudlo.vertex[1].Set(10.0f, 0.0f);
+	pudlo.vertex[2].Set(10.0f, 10.0f);
+	pudlo.vertex[3].Set(0.0f, 10.0f);
+
+	pudlo.polygon.Set(pudlo.vertex, pudlo.countVert);
+
+	pudlo.fixtureDef.shape = &pudlo.polygon;
+	pudlo.fixtureDef.density = 2.0f;
+	pudlo.fixtureDef.friction = 1.0f;
+
+	pudlo.body->CreateFixture(&pudlo.fixtureDef);
+
+	pudlo.Convex.setPointCount(4);
+
+	pudlo.Convex.setPoint(0, sf::Vector2f(0.0f, 0.0f));
+	pudlo.Convex.setPoint(1, sf::Vector2f(10.0f, 0.0f));
+	pudlo.Convex.setPoint(2, sf::Vector2f(10.0f, 10.0f));
+	pudlo.Convex.setPoint(3, sf::Vector2f(0.0f, 10.0f));
+
+	pudlo.Convex.setFillColor(sf::Color::White);
+	pudlo.Convex.setPosition(0, 0);
+
+
+
+	//EEEND
 
 	//creating a static body (they are static by default)
 
@@ -112,7 +148,7 @@ int main(int argc, char** argv)
 	b2FixtureDef vertFixture;
 	vertFixture.shape = &vertPolygon;
 	vertFixture.density = 1.0f;
-	myFixtureDef.friction = 0.5f;
+	vertFixture.friction = 0.5f;		
 
 	vertDynamic->CreateFixture(&vertFixture);
 

@@ -1,14 +1,13 @@
-#pragma once
+#ifndef BOX_H
+#define BOX_H
 #include "Box2D/Box2D.h"
 #include <SFML/Graphics.hpp>
 
-class MyClass
+class MyBox : public b2World
 {
-public:
-	MyClass();
-	~MyClass();
 
-private:
+public:
+	MyBox();
 	b2BodyDef bodyDef;
 	b2Body* body;
 	const int countVert = 4;
@@ -16,6 +15,7 @@ private:
 	b2PolygonShape polygon;
 	b2FixtureDef fixtureDef;
 
-	sf::ConvexShape convex;
+	
+	sf::ConvexShape Convex;
 };
-
+#endif
