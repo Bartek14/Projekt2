@@ -43,8 +43,8 @@ int main(int argc, char** argv)
 	groundRect.setPosition(groundRectCoordinates.x - groundRectCoordinates.width / 2, groundRectCoordinates.y - groundRectCoordinates.height / 2);
 
 
-	b2Vec2 rightForce(2.0f, 0.5f);
-	b2Vec2 leftForce(-2.0f, 0.5f);
+	b2Vec2 rightForce(2.0f, 0.0f);
+	b2Vec2 leftForce(-2.0f, 0.0f);
 	b2Vec2 upForce(0.0f, -2.0f);
 	b2Vec2 downForce(0.0f, 2.0f);
 
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
 	pudlo.Convex.setPoint(2, sf::Vector2f(10.0f, 10.0f));
 	pudlo.Convex.setPoint(3, sf::Vector2f(0.0f, 10.0f));
 
-	pudlo.Convex.setFillColor(sf::Color::White);
+	pudlo.Convex.setFillColor(sf::Color::Magenta);
 	pudlo.Convex.setPosition(0, 0);
 
 
@@ -123,7 +123,7 @@ int main(int argc, char** argv)
 	b2FixtureDef myFixtureDef;
 	myFixtureDef.shape = &DynamicBody;
 	myFixtureDef.density = 1.0f;
-	myFixtureDef.friction = 0.3f;
+	myFixtureDef.friction = 0.5f;
 
 	//creating fixture
 	myDynamicBody->CreateFixture(&myFixtureDef);
@@ -196,6 +196,9 @@ int main(int argc, char** argv)
 			b2Vec2 vertPosition = vertDynamic->GetPosition();
 			float32 vertAngle = vertDynamic->GetAngle();
 
+			b2Vec2 ConvexPosition = pudlo.body->GetPosition();
+			float32 ConvexAngle = pudlo.body->GetAngle();
+
 
 			printf("%4.2f %4.2f %4.2f %4.2f %4.2f %4.2f  \n", myPosition.x, myPosition.y, myAngle, vertPosition.x, vertPosition.y, vertAngle);
 
@@ -206,7 +209,6 @@ int main(int argc, char** argv)
 				myDynamicBody->SetLinearVelocity(leftForce);
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-				//for(int i=0; i<4; ++i)
 				myDynamicBody->SetLinearVelocity(upForce);
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -221,12 +223,15 @@ int main(int argc, char** argv)
 			convex.setPosition(vertPosition.x, vertPosition.y);
 			convex.setRotation(vertAngle*(180 / 3.14));
 
-			
+			pudlo.Convex.setPosition(ConvexPosition.x, ConvexPosition.y);
+			pudlo.Convex.setRotation(ConvexAngle*(180 / 3.14));
+
 			//displaying
 			window.clear();
 			window.draw(dynamicRect);
 			window.draw(groundRect);
 			window.draw(convex);
+			window.draw(pudlo.Convex);
 			window.display();
 		}
 

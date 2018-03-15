@@ -3,11 +3,13 @@
 #include "Box2D/Box2D.h"
 #include <SFML/Graphics.hpp>
 
-class MyBox : public b2World
+class MyBox
 {
 
 public:
-	MyBox();
+	MyBox()
+	{
+	};
 	b2BodyDef bodyDef;
 	b2Body* body;
 	const int countVert = 4;
