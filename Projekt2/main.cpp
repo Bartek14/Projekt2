@@ -122,8 +122,8 @@ int main(int argc, char** argv)
 	//creating fixture definition using the box
 	b2FixtureDef myFixtureDef;
 	myFixtureDef.shape = &DynamicBody;
-	myFixtureDef.density = 1.0f;
-	myFixtureDef.friction = 0.5f;
+	myFixtureDef.density = 0.2f;
+	myFixtureDef.friction = 0.2f;
 
 	//creating fixture
 	myDynamicBody->CreateFixture(&myFixtureDef);
@@ -170,6 +170,7 @@ int main(int argc, char** argv)
 
 	//creating timestep
 	float32 timeStep = 1.0f / 60.0f;
+	int remainingJumpSteps = 0;
 
 	//solving constraints iterations
 	int32 myVelocityIterations = 6;
@@ -213,6 +214,18 @@ int main(int argc, char** argv)
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 				myDynamicBody->SetLinearVelocity(downForce);
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				remainingJumpSteps = 6;
+
+			if (remainingJumpSteps > 0)
+			{
+				float force = myDynamicBody->GetMass()*10 / (1 / 60);
+				force /= 6.0;
+				myDynamicBody->ApplyForce(b2Vec2(0, -force), myDynamicBody->GetWorldCenter(),0);
+				remainingJumpSteps--;
+			}
+
 
 
 			//Graphics
